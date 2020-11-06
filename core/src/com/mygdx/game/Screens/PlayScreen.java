@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,10 +31,7 @@ import com.mygdx.game.Tools.B2WorldCreator;
 import com.mygdx.game.Tools.Controller;
 import com.mygdx.game.Tools.WorldContactListener;
 
-/**
-Represents the main screen of our game.
-Calls timer, box2d world, map, player sprite, enemy sprite, controller, camera classes.
- */
+
 public class PlayScreen extends ApplicationAdapter implements Screen {
     private MarioBros game;
     private TextureAtlas atlas;
@@ -43,7 +41,6 @@ public class PlayScreen extends ApplicationAdapter implements Screen {
     private Viewport gamePort;
     private Hud hud;
 
-    //Tiled map variables
     private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
@@ -53,37 +50,31 @@ public class PlayScreen extends ApplicationAdapter implements Screen {
     private Box2DDebugRenderer b2dr;
     private B2WorldCreator creator;
 
-    // player sprite
+    //sprites
     private Mario player;
+    private Music music;
+
 
     public static SpriteBatch batch;
-
-    // Controller
     Controller controller;
 
     public PlayScreen(MarioBros game) {
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
 
         this.game = game;
-
-        //create camera to follow player's movement
         gamecam = new OrthographicCamera();
 
-        //Fitviewport will keep the window ratio and fit to different screen size.
         gamePort = new FitViewport(MarioBros.V_WIDTH / MarioBros.PPM, MarioBros.V_HEIGHT / MarioBros.PPM, gamecam);
 
-        // create hud for timer
         hud = new Hud(game.batch);
 
-        //Load the tiled map and set up map renderer
         maploader = new TmxMapLoader();
         map = maploader.load("ourgame1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / MarioBros.PPM);
 
-        // The gamecamera is set at the center of the game screen at the start
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        //create Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
+
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
@@ -93,14 +84,15 @@ public class PlayScreen extends ApplicationAdapter implements Screen {
         Body body;
 
         creator = new B2WorldCreator(this);
-
-        //create player in the game world
         player=new Mario(this);
 
         world.setContactListener(new WorldContactListener());
+        music = MarioBros.manager.get("audio/music/yokai_music.ogg", Music.class); //load the music from the assets folder
+        music.setLooping(true); //loops the music
+        music.play();
 
-        //create controller
         controller = new Controller();
+
 
     }
 
@@ -108,9 +100,7 @@ public class PlayScreen extends ApplicationAdapter implements Screen {
         return atlas;
     }
 
-    /**
-     * @param dt
-     */
+
     public void handleInput(float dt){
         if(player.currentState != Mario.State.DEAD) {
             if (controller.isRightPressed())

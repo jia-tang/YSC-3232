@@ -14,6 +14,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MarioBros;
 
+//This class is the part where I create the game over screen
+// which gets triggered when the player is in the DEAD state.
+
 public class GameOverScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
@@ -24,12 +27,13 @@ public class GameOverScreen implements Screen {
         stage = new Stage(viewport, ((MarioBros) game).batch);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
-
+//Set where the message is going to be displayed
         Table table = new Table();
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("TIME UP!", font);
+        //message to be displayed:
+        Label gameOverLabel = new Label("GAME OVER", font);
         Label PlayAgainLabel = new Label("Click to Play Again", font);
 
         table.add(gameOverLabel).expandX();
@@ -47,15 +51,17 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
+//
     public void render(float delta) {
         if(Gdx.input.justTouched()) {
+            //This part takes care of the player can click on the screen to replay the game
             game.setScreen(new PlayScreen((MarioBros) game));
             dispose();
         }
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(34,139,3, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
-
+// renders out the screen with a given background color
 
     }
 
