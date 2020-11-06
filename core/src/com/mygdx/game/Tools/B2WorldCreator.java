@@ -16,6 +16,9 @@ import com.mygdx.game.Sprites.Coin;
 import com.mygdx.game.Screens.PlayScreen;
 import com.mygdx.game.Sprites.Goomba;
 
+/**
+ * The creation of b2bodies which are the bodies with physics provided by LibGDx.
+ */
 public class B2WorldCreator {
     private Array<Goomba> goombas;
     public B2WorldCreator(PlayScreen screen){

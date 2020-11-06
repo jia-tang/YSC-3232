@@ -12,7 +12,9 @@ import com.mygdx.game.MarioBros;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Screens.PlayScreen;
 
-
+/**
+ * Coin class.
+ */
 public class Coin extends InteractiveTileObject {
     public Coin(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);

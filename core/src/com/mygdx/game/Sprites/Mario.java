@@ -17,7 +17,9 @@ import com.mygdx.game.Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
 
-
+/**
+ * The Mario class acts to keep the many states of the main playable character.
+ */
 public class Mario extends Sprite {
     public enum State {FALLING, JUMPING, STANDING, RUNNING, DEAD };
     public State currentState;
@@ -32,7 +34,9 @@ public class Mario extends Sprite {
     private boolean runningRight;
     private boolean marioIsDead;
 
-
+    /**
+     * This Mario object is to animate the many states, like jumping and dying.
+     */
     public Mario(PlayScreen screen){
         super(screen.getAtlas().findRegion("little_mario"));
         this.world=screen.getWorld();
@@ -60,11 +64,18 @@ public class Mario extends Sprite {
         marioDead = new TextureRegion(getTexture(), 96,0,16,16);
     }
 
+    /**
+     * Updating the world state periodically saving each state of the character moving.
+     * @param dt delta time
+     */
     public void update(float dt){
         setPosition(b2body.getPosition().x-getWidth()/2,b2body.getPosition().y-getHeight()/2);
         setRegion(getFrame(dt));
     }
 
+    /**
+     * Updating mario animation based on the state.
+     */
     public TextureRegion getFrame(float dt){
         currentState = getState();
 
@@ -99,6 +110,10 @@ public class Mario extends Sprite {
         return region;
     }
 
+    /**
+     * Update state of playable main character.
+     * @return Returns state based on linear velocity of the playable character body.
+     */
     public State getState(){
         if(marioIsDead)
             return State.DEAD;
@@ -121,19 +136,22 @@ public class Mario extends Sprite {
     }
 
     //hit is not activated yet, have to go back to the part where the video explains about this bit
-    public void hit(){
-            //MarioBros.manager.get("audio/music/mario_music.ogg", Music.class).stop();
-            //MarioBros.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
-            marioIsDead = true;
-            Filter filter = new Filter();
-            filter.maskBits = MarioBros.NOTHING_BIT;
-            for (Fixture fixture : b2body.getFixtureList()) {
-                fixture.setFilterData(filter);
-            }
-
-            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+    public void hit() {
+        //MarioBros.manager.get("audio/music/mario_music.ogg", Music.class).stop();
+        //MarioBros.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
+        marioIsDead = true;
+        Filter filter = new Filter();
+        filter.maskBits = MarioBros.NOTHING_BIT;
+        for (Fixture fixture : b2body.getFixtureList()) {
+            fixture.setFilterData(filter);
         }
 
+        b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+    }
+
+    /**
+     * Creating the Mario b2body.
+     */
     public void defineMario(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(32/ MarioBros.PPM,32/MarioBros.PPM);

@@ -7,7 +7,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.MarioBros;
 import com.mygdx.game.Screens.PlayScreen;
 
-
+/**
+ * Brick class.
+ */
 public class Brick extends InteractiveTileObject {
     public Brick(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
