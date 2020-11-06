@@ -10,11 +10,11 @@ import com.mygdx.game.MarioBros;
 import com.mygdx.game.Sprites.Enemy;
 import com.mygdx.game.Sprites.InteractiveTileObject;
 
-//The worldcontactlistener class is responsible for changing the state in which
-//the game, player, or the enemies are in under different conditions.
-//For example, the class detects that the two object is in contact when the hitbox of the player
-//collides with the enemy. It can also detect whether the player collided from above
-//(to kill the ememy) or from the side (in this case the player dies)
+/**The worldcontactlistener class is responsible for changing the state in which
+the game, player, or the enemies are in under different conditions.
+For example, the class detects that the two object is in contact when the hitbox of the player
+collides with the enemy. It can also detect whether the player collided from above
+(to kill the ememy) or from the side (in this case the player dies)*/
 
 public class WorldContactListener implements ContactListener {
     @Override
