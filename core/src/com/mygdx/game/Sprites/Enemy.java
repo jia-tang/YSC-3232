@@ -6,12 +6,15 @@ import com.mygdx.game.Screens.PlayScreen;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.Body;
 
-//This class is inherited by the Goomba class
+/**This class is inherited by the Goomba class
+ *
+ */
 public abstract class Enemy extends Sprite {
     protected World world;
     protected PlayScreen screen;
     public Body b2body;
     public Vector2 velocity;
+
 
     public Enemy(PlayScreen screen, float x, float y){
         this.world = screen.getWorld();
@@ -25,9 +28,10 @@ public abstract class Enemy extends Sprite {
     public abstract void update(float dt);
     public abstract void hitOnHead();
 
-    //reverseVelocity changes the direction in which the enemy moves.
-    //It is used to allow Goombas to move left instead of right when they hit the
-    //end of the stage/brick
+    /**reverseVelocity changes the direction in which the enemy moves.
+    *It is used to allow Goombas to move left instead of right when they hit the
+    *end of the stage/brick */
+
     public void reverseVelocity(boolean x, boolean y){
         if(x)
             velocity.x = -velocity.x;

@@ -14,8 +14,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MarioBros;
 
-//This class is the part where I create the game over screen
-// which gets triggered when the player is in the DEAD state.
+/**This class is the part where I create the game over screen which gets triggered when the player is in the DEAD state.
+ *
+ */
 
 public class GameOverScreen implements Screen {
     private Viewport viewport;
@@ -51,7 +52,10 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-//
+/**renders out the screen with a given background color
+ *
+ */
+
     public void render(float delta) {
         if(Gdx.input.justTouched()) {
             //This part takes care of the player can click on the screen to replay the game
@@ -61,7 +65,7 @@ public class GameOverScreen implements Screen {
         Gdx.gl.glClearColor(34,139,3, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
-// renders out the screen with a given background color
+
 
     }
 
