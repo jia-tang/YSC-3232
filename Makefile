@@ -1,4 +1,4 @@
-TARGET=android/src/com/mygdx/game/AndroidLauncher.java
+TARGET=android/src/com/mygdx/game/AndroidLauncher
 
 %.class : %.java
 	javac $<
