@@ -176,7 +176,7 @@ public class PlayScreen extends ApplicationAdapter implements Screen {
     }
 
     public boolean gameOver(){
-        if(player.currentState == Mario.State.DEAD || player.getStateTimer() > 10){
+        if(player.currentState == Mario.State.DEAD && player.getStateTimer() > 10){
             return true;
         }
         return false;
