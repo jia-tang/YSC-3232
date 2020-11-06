@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Screens.PlayScreen;
 import com.mygdx.game.Tools.Controller;
@@ -25,14 +27,23 @@ public class MarioBros extends Game {
 
     public static SpriteBatch batch;
 
+    public static AssetManager manager;
+
+
     @Override
     public void create () {
         batch = new SpriteBatch();
+        manager = new AssetManager();
+        manager.load("audio/music/yokai_music.ogg", Music.class);
+        manager.finishLoading();
         setScreen(new PlayScreen(this));
     }
 
     @Override
     public void render () {
         super.render();
+
+
     }
+
 }

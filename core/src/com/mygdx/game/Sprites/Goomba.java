@@ -13,6 +13,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
 
+//Most part of how Goomba acts on stage (the enemy we see in the beginning of the game) is
+//inherited from the Enemy class
+//Goomba has a unique walk animation, and also an additional hitbox in which
+//the player can stomp on to kill the Goomba
+
 public class Goomba extends Enemy {
     private float stateTime;
     private Animation<TextureRegion> walkAnimation;
@@ -26,13 +31,19 @@ public class Goomba extends Enemy {
         for (int i = 0; i < 2; i++)
             frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
         walkAnimation = new Animation(0.4f, frames);
+        //Above part takes care of the animation when the Goomba is walking,
+        //it changes the image every 0.4 frames
         stateTime = 0;
         setBounds(getX(), getY(), 16 / MarioBros.PPM, 16 / MarioBros.PPM);
         setToDestroy = false;
         destroyed = false;
+        //Above sets the default state of Goomba. When nothing is in contact, Goomba
+        //does not get killed nor it can kill the player
     }
 
     public void update(float dt) {
+        //updates the image of the Goomba to a squished version
+        // when it gets hit on the head by the player (= becomes in a "destroy"-ed state.
         stateTime += dt;
         if (setToDestroy && !destroyed) {
             world.destroyBody(b2body);
@@ -40,6 +51,7 @@ public class Goomba extends Enemy {
             setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
             stateTime = 0;
         } else if (!destroyed) {
+            //when the Goomba is not destroyed, it will keep moving at a constant speed
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
@@ -68,7 +80,8 @@ public class Goomba extends Enemy {
             fdef.shape = shape;
             b2body.createFixture(fdef).setUserData(this);
 
-            //Create the Head here:
+            //Create the Head of the Goomba, it is an extra hitbox that is used
+            // to check whether if the player have stomped on the Goomba on its head.
             PolygonShape head = new PolygonShape();
             Vector2[] vertice = new Vector2[4];
             vertice[0] = new Vector2(-5, 8).scl(1 / MarioBros.PPM);
