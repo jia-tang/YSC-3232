@@ -17,13 +17,17 @@ import com.mygdx.game.MarioBros;
 import com.mygdx.game.Screens.PlayScreen;
 
 /**
- * Created by brentaureli on 10/23/15.
+ * A controller passes boolean isrightpressed/ isleftpressed/ isuppressed to the class Playscreen
+ * 3 imgaes contain InputListener that receives booelan Touchdown/TouchUp
+ * The 3 images are diaplayed on the screen by a table
  */
 public class Controller {
     Viewport viewport;
     Stage stage;
     boolean upPressed, downPressed, leftPressed, rightPressed;
     OrthographicCamera cam;
+
+
 
     public Controller(){
         cam = new OrthographicCamera();
@@ -190,3 +194,4 @@ public class Controller {
         viewport.update(width, height);
     }
 }
+
